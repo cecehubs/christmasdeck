@@ -1,0 +1,810 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Holiday Party Magic Booth — 204.ai</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Cutive+Mono&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<style>/* ===== 204 design system — tokens ===== */
+:root{
+  --black:#000000;--bg:#151515;--card:#1E1E1E;--paper:#EFEFEF;--line:#2A2A2A;--line-strong:#404040;
+  --t1:#EFEFEF;--t2:#AAAAAA;--t3:#8A8A8A;--on-paper:#151515;
+  --mono:'Cutive Mono',monospace;--display:'Anton SC',Impact,sans-serif;--body:Poppins,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--body);font-weight:300;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+
+/* ===== type: 11 styles ===== */
+/* Display — Anton SC 400, uppercase, tracking 0, line-height .9 */
+.d-xl,.d-l,.d-m,.d-s,.d-xs,h1,h2,h3,h4{font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:0;line-height:.9}
+h1,.d-xl{font-size:clamp(64px,11.1vw,160px)}          /* hero only */
+.d-l{font-size:clamp(52px,7.8vw,112px)}                /* page titles */
+h2,.d-m{font-size:clamp(38px,4.45vw,64px)}             /* section titles */
+h3,.d-s{font-size:clamp(24px,2.25vw,32px)}             /* card & project titles */
+h4,.d-xs{font-size:20px}                               /* small cards, lists */
+/* Body — Poppins, sentence case */
+.lead{font-size:20px;font-weight:300;line-height:1.5;color:var(--t2);max-width:640px;margin-top:24px}
+p,.body{font-size:15px;font-weight:300;line-height:1.7}
+.small{font-size:13px;font-weight:400;line-height:1.6}
+/* Mono — Cutive Mono 400, never bold */
+.label,.tag{font-family:var(--mono);font-weight:400;font-size:11px;text-transform:uppercase;letter-spacing:.14em;line-height:1.4}
+.meta,.mono{font-family:var(--mono);font-weight:400;font-size:13px;letter-spacing:0;line-height:1.5}
+.micro{font-family:var(--mono);font-weight:400;font-size:10px;text-transform:uppercase;letter-spacing:.14em;line-height:1.4}
+b,strong{font-weight:400}
+
+/* ===== buttons: pills, arrow after label ===== */
+.btn{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;height:48px;padding:0 26px;border-radius:999px;border:1px solid var(--t1);background:transparent;color:var(--t1);text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,color .2s;white-space:nowrap}
+.btn:hover{background:var(--t1);color:var(--on-paper)}                 /* secondary: fills on hover */
+.btn.pri{background:var(--paper);color:var(--on-paper);border-color:var(--paper)}
+.btn.pri:hover{background:transparent;color:var(--t1);border-color:var(--t1)} /* primary: inverts to outline */
+.btn.on-paper{border-color:var(--on-paper);color:var(--on-paper)}
+.btn.on-paper:hover{background:var(--on-paper);color:var(--paper)}
+.chip{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;height:32px;padding:0 14px;border-radius:999px;border:1px solid var(--line-strong);background:transparent;color:var(--t2);cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.2s;white-space:nowrap}
+.chip:hover{color:var(--t1)}
+.chip.on{border-color:var(--t1);color:var(--t1)}
+.ibtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-strong);background:rgba(21,21,21,.8);color:var(--t1);display:inline-flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:.2s}
+.ibtn:hover{border-color:var(--t1)}
+.tlink{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:4px;color:var(--t2);transition:.2s}
+.tlink:hover{color:var(--t1);text-decoration-color:var(--t1)}
+.tbc{font-family:var(--mono);font-size:.9em;letter-spacing:0;border:1px dashed var(--t3);color:var(--t1);padding:0 .4em;white-space:nowrap}
+.paper .tbc,.tbc.dk{border-color:var(--on-paper);color:var(--on-paper)}
+
+/* ===== chrome ===== */
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px 4vw;background:linear-gradient(rgba(21,21,21,.93),rgba(21,21,21,0))}
+.logo{font-family:var(--display);font-size:30px;line-height:.8;text-decoration:none}
+.logo small{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.3em;border-top:1px solid var(--t1);margin-top:3px;padding-top:2px}
+.dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:12px}
+.dots a{width:9px;height:9px;border-radius:50%;border:1px solid var(--t3);display:block;position:relative}
+.dots a.on{background:var(--t1);border-color:var(--t1)}
+.dots a span{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;white-space:nowrap;opacity:0;transition:.2s;pointer-events:none;background:var(--black);padding:4px 8px;border:1px solid var(--line-strong)}
+.dots a:hover span{opacity:1}
+@media(max-width:800px){.dots{display:none}}
+section{min-height:100vh;padding:110px 7vw 70px;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;justify-content:center}
+.tag{color:var(--t2);margin-bottom:22px;display:block}
+.foot{position:absolute;left:7vw;right:7vw;bottom:20px;display:flex;justify-content:space-between;color:var(--t3)}
+.hint{margin-top:16px;color:var(--t3)}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ===== cover / cta split ===== */
+#cover,#cta{padding:0;display:grid;grid-template-columns:1.1fr 1fr}
+#cover .pic,#cta .pic{position:relative;overflow:hidden}
+#cover .pic img,#cta .pic img{width:100%;height:100%;object-fit:cover}
+#cover .pic img{animation:kb 18s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08) translate(-1%,-1%)}}
+#cover .txt,#cta .txt{background:var(--black);padding:120px 6vw 60px;display:flex;flex-direction:column;justify-content:center}
+.scroll{margin-top:44px;color:var(--t2);display:flex;align-items:center;gap:10px}
+.scroll i{width:1px;height:38px;background:var(--t1);display:block;animation:dr 1.6s infinite}
+@keyframes dr{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media(max-width:800px){#cover,#cta{grid-template-columns:1fr}#cover .pic{height:52vh}#cta .pic{height:40vh}}
+
+/* ===== shared blocks ===== */
+.split{display:grid;grid-template-columns:1.3fr 1fr;gap:5vw;align-items:center}
+.probs{display:grid;gap:12px;margin-top:40px}
+.prob{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:20px 22px;background:var(--card);border:1px solid var(--line)}
+.prob .n{font-family:var(--display);font-size:32px;line-height:.9;color:var(--t3)}
+.prob h4{margin-bottom:6px}
+.prob p{color:var(--t2)}
+.tilt{transform:rotate(3deg);box-shadow:0 30px 80px #000}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
+.step{background:var(--card);border:1px solid var(--line);cursor:pointer;transition:.35s;overflow:hidden}
+.step .im{aspect-ratio:3/4;overflow:hidden}
+.step img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.55);transition:.6s}
+.step .t{padding:16px 16px 18px}
+.step .label{color:var(--t3)}
+.step h4{margin:8px 0}
+.step p{color:var(--t2)}
+.step.on{border-color:var(--t1)}
+.step.on img{filter:none;transform:scale(1.04)}
+.step.on .label{color:var(--t1)}
+.timer{margin-top:28px;display:flex;gap:30px;flex-wrap:wrap;color:var(--t2)}
+.timer b{color:var(--t1)}
+@media(max-width:800px){.steps{grid-template-columns:1fr 1fr}}
+
+.vid{position:relative;border:1px solid var(--line);overflow:hidden;aspect-ratio:16/9;max-height:62vh;display:block;text-decoration:none}
+.vid img{width:100%;height:100%;object-fit:cover;filter:brightness(.6);transition:.5s}
+.vid:hover img{filter:brightness(.8);transform:scale(1.02)}
+.vid .play{position:absolute;left:20px;bottom:20px;display:flex;align-items:center;gap:14px}
+.vid:hover .ibtn{border-color:var(--t1)}
+
+.styles{display:grid;grid-template-columns:1fr 1.05fr;gap:5vw;align-items:center}
+.ba{position:relative;width:min(100%,calc(74vh*984/1056));aspect-ratio:984/1056;overflow:hidden;user-select:none;touch-action:none;cursor:ew-resize;border:1px solid var(--line);margin-left:auto}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ba .after{clip-path:inset(0 0 0 50%);transition:opacity .25s}
+.ba .h{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--t1)}
+.ba .h .ibtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;letter-spacing:2px;pointer-events:none}
+.ba .lb{position:absolute;bottom:12px;background:rgba(21,21,21,.8);padding:4px 9px}
+.ba .lb.l{left:12px}.ba .lb.r{right:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+@media(max-width:900px){.styles{grid-template-columns:1fr}.ba{margin:0 auto}}
+
+.case{display:grid;grid-template-columns:1fr 1.2fr;gap:5vw;align-items:center}
+.cs{display:grid;margin-top:30px}
+.cs div{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.cs .label{color:var(--t3);padding-top:4px}
+.cs p{color:var(--t2)}
+.mosaic{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:8px;height:68vh;position:relative}
+.mosaic img{width:100%;height:100%;object-fit:cover}
+.mosaic .big{grid-column:span 2;grid-row:span 2}
+.mosaic .float{position:absolute;width:130px;height:auto;pointer-events:none;animation:fl 6s ease-in-out infinite;mix-blend-mode:lighten}
+@keyframes fl{50%{transform:translateY(-14px) rotate(4deg)}}
+.mosaic .vt{position:relative;overflow:hidden;display:block}
+.mosaic .vt img{filter:brightness(.6)}
+.mosaic .vt .ibtn{position:absolute;left:12px;bottom:12px}
+.mosaic .vt .label{position:absolute;left:66px;bottom:26px}
+.stat{display:flex;gap:40px;margin-top:28px}
+.stat .v{font-family:var(--display);font-size:32px;line-height:.9;display:block;margin-bottom:6px}
+.stat .label{color:var(--t3)}
+@media(max-width:900px){.case{grid-template-columns:1fr}.mosaic{height:50vh}}
+
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.pc{background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.pc .im{aspect-ratio:4/3;overflow:hidden}
+.pc .im img{width:100%;height:100%;object-fit:cover;transition:.6s}
+.pc:hover .im img{transform:scale(1.05)}
+.pc .t{padding:18px}
+.pc .label{color:var(--t3)}
+.pc h3{margin:8px 0 10px}
+.pc p{color:var(--t2)}
+.logos{margin-top:34px;display:flex;flex-wrap:wrap;gap:10px 26px;color:var(--t2)}
+.logos .first{color:var(--t3)}
+@media(max-width:900px){.cards3{grid-template-columns:1fr}}
+
+.fmt{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.fc{background:var(--paper);color:var(--on-paper);transition:.3s}
+.fc .im{aspect-ratio:4/5;overflow:hidden}
+.fc .im img{width:100%;height:100%;object-fit:cover}
+.fc .t{padding:16px 18px 20px}
+.fc dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin-top:12px;font-size:13px;font-weight:400;line-height:1.6}
+.fc dt{padding-top:2px}
+.fc:hover{transform:translateY(-6px)}
+@media(max-width:900px){.fmt{grid-template-columns:1fr}}
+
+.pk{display:grid;grid-template-columns:1fr 1.2fr;gap:5vw;align-items:start;margin-top:36px}
+.tiers{display:flex;flex-wrap:wrap;gap:8px}
+.always{margin-top:26px;color:var(--t2)}
+.privacy{margin-top:22px;padding:18px 20px;border:1px solid var(--line-strong);color:var(--t2)}
+.privacy h4{color:var(--t1);margin-bottom:6px}
+.detail{background:var(--paper);color:var(--on-paper);padding:30px 32px}
+.detail .meta{margin:8px 0 18px}
+.detail ul{list-style:none;display:grid;gap:8px}
+.detail li{padding-left:24px;position:relative}
+.detail li:before{content:'✓';position:absolute;left:0}
+.detail li.x{opacity:.45}.detail li.x:before{content:'–'}
+@media(max-width:900px){.pk{grid-template-columns:1fr}}
+
+.tk{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px}
+.tc{position:relative;aspect-ratio:3/4;overflow:hidden;border:1px solid var(--line)}
+.tc img{width:100%;height:100%;object-fit:cover;transition:.6s;filter:brightness(.6)}
+.tc:hover img{filter:brightness(.9);transform:scale(1.05)}
+.tc .t{position:absolute;left:0;right:0;bottom:0;padding:18px;background:linear-gradient(transparent,rgba(0,0,0,.9))}
+.tc p{color:var(--t2);max-height:0;overflow:hidden;transition:.4s}
+.tc:hover p{max-height:140px;margin-top:6px}
+.tc .meta{margin-top:6px}
+@media(max-width:900px){.tk{grid-template-columns:1fr 1fr}}
+
+.form{display:grid;gap:10px;margin-top:30px;max-width:460px}
+.form input,.form select{background:var(--bg);border:1px solid var(--line-strong);color:var(--t1);font-family:var(--body);font-weight:300;font-size:15px;height:48px;padding:0 16px;outline:none}
+.form input:focus,.form select:focus{border-color:var(--t1)}
+.form .btn{margin-top:6px;justify-self:start}
+.contact{margin-top:30px;display:grid;grid-template-columns:auto 1fr;gap:10px 22px;align-items:baseline}
+.contact .label{color:var(--t3)}
+.contact .meta{color:var(--t2)}
+.sent{display:none;margin-top:16px;padding:16px;border:1px solid var(--line-strong)}
+.sent textarea{width:100%;margin-top:10px;background:var(--bg);color:var(--t1);border:1px solid var(--line-strong);font-family:var(--mono);font-size:13px;padding:10px;height:120px}
+.sent .btn{margin-top:10px}
+
+/* ===== corporate blocks ===== */
+.occ{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
+.rec{margin-top:16px;display:grid;grid-template-columns:1.1fr 1fr;background:var(--paper);color:var(--on-paper);min-height:300px}
+.rec .t{padding:30px 32px}
+.rec h3{margin:10px 0 14px}
+.rec .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.rec .pills span{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;border:1px solid var(--on-paper);border-radius:999px;height:32px;padding:0 14px;display:inline-flex;align-items:center}
+.rec .im{overflow:hidden}
+.rec .im img{width:100%;height:100%;object-fit:cover}
+@media(max-width:900px){.rec{grid-template-columns:1fr}.rec .im{height:240px}}
+
+.acts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:40px}
+.ac{background:var(--card);border:1px solid var(--line);cursor:pointer;transition:.3s}
+.ac .im{aspect-ratio:4/5;overflow:hidden}
+.ac .im img{width:100%;height:100%;object-fit:cover;filter:brightness(.7);transition:.6s}
+.ac:hover .im img,.ac.on .im img{filter:none;transform:scale(1.04)}
+.ac .t{padding:16px}
+.ac .meta{color:var(--t2);margin-top:6px}
+.ac.on{border-color:var(--t1)}
+.spec{margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.spec>div{background:var(--bg);padding:18px 20px}
+.spec .label{color:var(--t3);display:block;margin-bottom:8px}
+@media(max-width:1000px){.acts{grid-template-columns:repeat(3,1fr)}.spec{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.acts{grid-template-columns:1fr 1fr}}
+
+.xm{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center}
+.snow{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.snow i{position:absolute;top:-10px;border-radius:50%;background:rgba(239,239,239,.35);animation:sn linear infinite}
+@keyframes sn{to{transform:translateY(110vh)}}
+.book{margin-top:22px;display:flex;justify-content:space-between;align-items:center;gap:14px;border-top:1px solid rgba(21,21,21,.15);padding-top:18px}
+@media(max-width:900px){.xm{grid-template-columns:1fr}}
+
+.safe{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.sf{padding:24px;border:1px solid var(--line);background:var(--card)}
+.sf .label{color:var(--t3)}
+.sf h4{margin:10px 0 8px}
+.sf p{color:var(--t2)}
+@media(max-width:900px){.safe{grid-template-columns:1fr}}
+
+.tl{display:grid;grid-template-columns:repeat(5,1fr);margin-top:50px;position:relative}
+.tl:before{content:'';position:absolute;left:0;right:0;top:9px;height:1px;background:var(--line-strong)}
+.tl .fill{position:absolute;left:0;top:9px;height:1px;background:var(--t1);width:0;transition:width 2.4s ease}
+.tl.in .fill{width:100%}
+.tp{position:relative;padding-right:20px}
+.tp i{display:block;width:19px;height:19px;border-radius:50%;background:var(--bg);border:1px solid var(--t1);margin-bottom:22px;position:relative;z-index:1}
+.tp .label{color:var(--t3)}
+.tp h4{margin:8px 0}
+.tp p{color:var(--t2)}
+@media(max-width:900px){.tl{grid-template-columns:1fr;gap:26px}.tl:before,.tl .fill{display:none}}
+
+.team{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:30px}
+.tm .av{aspect-ratio:1;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:32px;color:var(--t3)}
+.tm .small{margin-top:10px}
+.tm .meta{color:var(--t3);font-size:11px}
+@media(max-width:900px){.team{grid-template-columns:repeat(3,1fr)}}
+
+/* placeholder image (to be replaced) */
+.ph{width:100%;height:100%;min-height:160px;background:var(--card);border:1px dashed var(--line-strong);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:var(--t3)}
+
+/* good to know (accordion) */
+.faq{margin-top:36px;border-top:1px solid var(--line)}
+.fq{border-bottom:1px solid var(--line)}
+.fq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0;cursor:pointer}
+.fq summary::-webkit-details-marker{display:none}
+.fq summary h4{transition:color .2s}
+.fq summary .ibtn{flex:none;transition:transform .3s}
+.fq[open] summary .ibtn{transform:rotate(45deg);border-color:var(--t1)}
+.fq:hover summary .ibtn{border-color:var(--t1)}
+.fq .a{padding:0 64px 22px 0;color:var(--t2);max-width:780px}
+.faqgrid{display:grid;grid-template-columns:1fr 1.6fr;gap:5vw;align-items:start}
+@media(max-width:900px){.faqgrid{grid-template-columns:1fr}}
+
+/* Christmas: the one place colour is allowed */
+#xmas{background:radial-gradient(ellipse at 80% 20%,#3a1515 0%,#221313 35%,#151515 70%)}
+
+/* logo */
+.logo img{height:30px;width:auto;display:block}
+
+/* team photos */
+.tm .av{overflow:hidden;background:var(--paper)}
+.tm .av img{width:100%;height:100%;object-fit:cover;filter:grayscale(.15);transition:transform .6s}
+.tm:hover .av img{transform:scale(1.05)}
+
+/* before/after now 3:4 */
+.ba{aspect-ratio:3/4;width:min(100%,calc(74vh*3/4))}
+.ba img{transition:opacity .25s}
+
+/* ===== scroll motion ===== */
+.ln{display:inline-block;overflow:hidden;vertical-align:top;padding:.24em 0 .06em;margin:-.24em 0 -.06em}
+.ln>span{display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.1,1)}
+.lines-in .ln>span{transform:none}
+.wipe{clip-path:inset(0 0 100% 0);transition:clip-path 1.2s cubic-bezier(.6,0,.2,1)}
+.wipe.in{clip-path:inset(0 0 0 0)}
+[data-px]{will-change:transform}
+@media (prefers-reduced-motion:reduce){
+  .rv,.wipe,.ln>span{transition:none!important;transform:none!important;clip-path:none!important;opacity:1!important}
+  #cover .pic img{animation:none}
+}
+
+/* toolkit: text under the image for readability */
+.tc{aspect-ratio:auto;background:var(--card);display:flex;flex-direction:column}
+.tc img{aspect-ratio:4/3;height:auto;filter:none}
+.tc:hover img{filter:none}
+.tc .t{position:static;background:none;padding:18px}
+.tc p{max-height:none;margin-top:8px}
+.tc:hover p{max-height:none}
+
+/* red tint for festive sections */
+.red{background:radial-gradient(ellipse at 80% 15%,#3a1515 0%,#221313 38%,#151515 72%)}
+#cover.red .txt{background:radial-gradient(ellipse at 70% 20%,#3a1515 0%,#1a0d0d 55%,#000 90%)}
+.worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.wd{background:var(--card);border:1px solid var(--line)}
+.wd .ph{aspect-ratio:3/4;min-height:0}
+.wd .t{padding:14px 16px 18px}
+.wd p{color:var(--t2);margin-top:6px}
+.ways{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.way{border:1px solid var(--line-strong);padding:18px 20px}
+.way h4{margin:8px 0 6px}
+.way p{color:var(--t2)}
+@media(max-width:900px){.worlds,.ways{grid-template-columns:1fr}}
+#cover .txt{position:relative}
+.wd .ph{aspect-ratio:4/3}
+.rec .im{height:400px}
+@media(max-width:900px){.rec .im{height:240px}}
+
+/* ======================================================
+   RESPONSIVE PASS — fits phones up to very large screens
+   ====================================================== */
+/* content never wider than ~1440px; centred on big screens */
+section{padding-left:max(7vw,calc((100vw - 1440px)/2));padding-right:max(7vw,calc((100vw - 1440px)/2))}
+.foot{left:max(7vw,calc((100vw - 1440px)/2));right:max(7vw,calc((100vw - 1440px)/2))}
+.bar{padding-left:max(4vw,calc((100vw - 1600px)/2));padding-right:max(4vw,calc((100vw - 1600px)/2))}
+#cover,#cta{padding:0}
+#cover .txt,#cta .txt{padding:clamp(90px,12vh,140px) clamp(24px,6vw,110px) clamp(40px,7vh,80px)}
+#cover .txt>*,#cta .txt>*{max-width:640px}
+
+/* type scales with both width and height, so short or huge screens stay balanced */
+h1,.d-xl{font-size:clamp(46px,min(10.5vw,15vh),160px)}
+.d-l{font-size:clamp(40px,min(7.4vw,11vh),112px)}
+h2,.d-m{font-size:clamp(32px,min(4.45vw,7.6vh),64px)}
+h3,.d-s{font-size:clamp(22px,min(2.25vw,4vh),32px)}
+.lead{font-size:clamp(16px,1.35vw,20px)}
+
+/* tall blocks capped on big / short screens */
+.mosaic{height:min(68vh,760px)}
+.ba{width:min(100%,calc(min(74vh,820px)*3/4))}
+.vid{max-height:min(62vh,720px)}
+.rec .im{height:clamp(240px,42vh,460px)}
+.tilt{max-height:72vh;object-fit:cover;justify-self:center}
+.step .im{aspect-ratio:3/4;max-height:44vh}
+.ac .im{max-height:40vh}
+
+/* white cards: content sits in the middle */
+.rec .t{display:flex;flex-direction:column;justify-content:center}
+.worlds.two{grid-template-columns:repeat(2,1fr);max-width:1000px}
+
+/* tablets */
+@media(max-width:1000px){
+  .tk{grid-template-columns:1fr 1fr}
+  .team{grid-template-columns:repeat(3,1fr)}
+}
+/* phones */
+@media(max-width:700px){
+  section{padding:84px 6vw 56px;min-height:auto}
+  #cover{min-height:100svh}
+  .foot{position:static;margin-top:32px;flex-direction:column;gap:6px}
+  .bar{padding:12px 5vw}
+  .logo img{height:24px}
+  .bar .btn{height:38px;padding:0 14px;font-size:11px}
+  .btn{height:44px;padding:0 20px}
+  .steps,.acts{grid-template-columns:1fr 1fr;gap:8px}
+  .step .t,.ac .t{padding:12px}
+  .step p{font-size:13px}
+  .tk,.team,.worlds.two,.cards3,.safe,.ways{grid-template-columns:1fr 1fr}
+  .cards3,.safe,.ways{grid-template-columns:1fr}
+  .team{grid-template-columns:1fr 1fr}
+  .cs div{grid-template-columns:1fr;gap:4px}
+  .fq .a{padding-right:0}
+  .detail,.rec .t{padding:22px}
+  .mosaic{height:auto;grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .mosaic .big{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}
+  .mosaic>img:not(.big),.mosaic .vt{aspect-ratio:3/4}
+  .mosaic .float{display:none}
+  .tilt{transform:none;max-height:none}
+  .stat{gap:24px}
+  .spec{grid-template-columns:1fr}
+  .book{flex-direction:column;align-items:flex-start}
+  .timer{gap:12px 20px}
+  .chips .chip,.occ .chip,.tiers .chip{height:auto;min-height:32px;padding:6px 12px;white-space:normal;text-align:left}
+}
+@media(max-width:420px){
+  .tk,.team,.worlds.two{grid-template-columns:1fr}
+}
+/* overflow guards */
+html,body{overflow-x:clip}
+.worlds>*,.steps>*,.acts>*,.cards3>*,.tk>*,.team>*{min-width:0}
+.wd .ph{min-height:0}
+#cover h1{font-size:clamp(42px,min(6.4vw,14vh),150px)}
+#cta .d-l{font-size:clamp(36px,min(5vw,11vh),112px)}
+@media(max-width:800px){#cover h1{font-size:clamp(40px,11vw,72px)}#cta .d-l{font-size:clamp(34px,10vw,64px)}}
+
+/* ===== small-screen tuning (round 2) ===== */
+/* photos frame faces, not torsos */
+#cta .pic img{object-position:50% 18%}
+.step img,.ac .im img,.pc .im img,.tc img,.rec .im img{object-position:50% 25%}
+/* step photos always fill their card */
+.step .im{max-height:none}
+@media(max-width:1000px){
+  h2,.d-m{font-size:clamp(28px,5.6vw,46px)}
+  h4,.d-xs{font-size:18px}
+  .lead{font-size:16px}
+  .step .im{aspect-ratio:1/1}
+  .step h4{font-size:17px}
+  .step p,.ac p,.pc p,.sf p,.prob p{font-size:14px}
+  .probs .prob{grid-template-columns:44px 1fr;padding:16px}
+  .prob .n{font-size:26px}
+  .detail{padding:24px}
+  .detail h3,.xbox h3{font-size:24px}
+  .mosaic{height:min(60vh,560px)}
+}
+@media(max-width:700px){
+  #cover,#cta{padding:0}                      /* no empty band above the photo */
+  #cta .pic{height:46vh}
+  #cta .pic img,#cover .pic img{transform:none!important;animation:none}
+  #cover .pic{height:46vh}
+  h2,.d-m{font-size:clamp(26px,7.4vw,38px)}
+  .step .im{aspect-ratio:4/5}
+  .stat .v{font-size:24px}
+}
+@media(max-width:700px){#cover .txt,#cta .txt{padding-top:40px}}
+
+/* ===== logo strip (all logos turned into one brand white) ===== */
+.logostrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:22px 30px;align-items:center;margin-top:34px;max-width:1100px}
+.logostrip img{width:100%;height:42px;object-fit:contain;filter:brightness(0) invert(.93);opacity:.75;transition:opacity .3s}
+.logostrip img:hover{opacity:1}
+@media(max-width:700px){.logostrip{grid-template-columns:repeat(3,1fr);gap:18px}.logostrip img{height:32px}}
+
+/* ===== who we are strip ===== */
+.who{display:grid;grid-template-columns:1fr 1.2fr;gap:5vw;align-items:center}
+.faces{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.faces img{aspect-ratio:1;object-fit:cover;width:100%;background:var(--paper)}
+.who .meta{color:var(--t3);margin-top:16px}
+@media(max-width:900px){.who{grid-template-columns:1fr}.faces{grid-template-columns:repeat(3,1fr)}}
+
+/* ===== video tiles ===== */
+.mosaic video,.vidtile video{width:100%;height:100%;object-fit:cover;display:block}
+.mosaic video.big{grid-column:span 2;grid-row:span 2}
+@media(max-width:700px){.mosaic video.big{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}}
+
+/* ===== work grid (cases) ===== */
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.wk{background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.wk .im{aspect-ratio:16/10;overflow:hidden}
+.wk .im img,.wk .im video{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.wk:hover .im img{transform:scale(1.04)}
+.wk .t{padding:18px}
+.wk .label{color:var(--t3)}
+.wk h3{margin:8px 0 10px}
+.wk p{color:var(--t2)}
+.wk .tlink{margin-top:12px;display:inline-block}
+.works.two{grid-template-columns:1fr 1fr}
+@media(max-width:1000px){.works{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.works,.works.two{grid-template-columns:1fr}}
+
+/* numbered steps list */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px}
+.fl{border-top:1px solid var(--t1);padding-top:18px}
+.fl .label{color:var(--t3)}
+.fl h4{margin:10px 0 8px}
+.fl p{color:var(--t2)}
+@media(max-width:800px){.flow{grid-template-columns:1fr}}
+
+/* content deck */
+.reel{position:relative;border:1px solid var(--line);background:#000;max-width:1200px}
+.reel video{width:100%;display:block;max-height:72vh}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px}
+.trio figure{margin:0;background:var(--card);border:1px solid var(--line)}
+.trio video,.trio img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
+.trio figcaption{padding:12px 14px}
+.trio figcaption .label{color:var(--t3)}
+.alliance{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px}
+.alliance>div{background:var(--bg);padding:22px}
+.alliance .label{color:var(--t3)}
+.alliance h4{margin:8px 0 6px}
+.alliance p{color:var(--t2)}
+.domes{display:grid;grid-template-columns:1.4fr 1fr;gap:12px;margin-top:36px}
+.domes video,.domes img{width:100%;height:100%;object-fit:cover;display:block;border:1px solid var(--line)}
+.domes .col{display:grid;gap:12px}
+@media(max-width:900px){.trio{grid-template-columns:1fr 1fr 1fr;gap:6px}.alliance,.domes{grid-template-columns:1fr}}
+@media(max-width:560px){.trio{grid-template-columns:1fr}}
+
+/* mosaic: every tile (img or video) stays inside its cell */
+.mosaic{grid-template-rows:repeat(2,minmax(0,1fr));overflow:hidden}
+.mosaic>*{min-width:0;min-height:0;width:100%;height:100%;object-fit:cover;display:block}
+.mosaic>.float{width:130px;height:auto;overflow:visible}
+.mosaic:has(.float){overflow:visible}
+.mosaic>.ph{min-height:0}
+@media(max-width:700px){
+  .mosaic{grid-template-rows:none;height:auto;overflow:hidden}
+  .mosaic>*:not(.big){aspect-ratio:3/4;height:auto}
+  .mosaic>.big{aspect-ratio:4/3;height:auto}
+}
+
+/* holiday: urgency */
+.urgent{position:fixed;top:0;left:0;right:0;z-index:60;background:#7a1414;color:var(--t1);text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px}
+.urgent+.bar{top:30px}
+.big-red{color:#ff8f8f}
+.rush{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#4a1d1d;border:1px solid #4a1d1d;margin-top:36px}
+.rush>div{background:#1a0f0f;padding:24px 22px}
+.rush .label{color:#d79a9a}
+.rush h4{margin:10px 0 8px}
+.rush p{color:var(--t2)}
+.occ6{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px}
+.occ6>div{border:1px solid var(--line);background:var(--card);padding:22px}
+.occ6 .label{color:var(--t3)}
+.occ6 h4{margin:8px 0 6px}
+.occ6 p{color:var(--t2)}
+@media(max-width:900px){.rush{grid-template-columns:1fr 1fr}.occ6{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.rush,.occ6{grid-template-columns:1fr}.urgent{font-size:10px}}
+.urgent .s{display:none}
+@media(max-width:700px){.urgent .l{display:none}.urgent .s{display:inline}}
+body:has(.urgent) .bar{top:33px}
+section>*{flex-shrink:0}
+.wd .ph{height:auto}
+.pk.even{grid-template-columns:1fr 1fr;align-items:stretch;gap:12px}
+@media(max-width:900px){.pk.even{grid-template-columns:1fr}}
+.pk.even>.detail{height:100%}
+.wnow{margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}
+.wnow p{color:var(--t2);margin-top:6px}
+#worlds .chips .chip{margin-bottom:2px}
+.wd .fr{display:block;width:100%;aspect-ratio:4/5;height:auto;object-fit:cover}
+.wd .ph.fr{display:grid;place-items:center}
+.gvid{margin-top:30px;border:1px solid var(--line);aspect-ratio:1280/762;max-height:70vh;overflow:hidden;background:#000}
+.gvid video{width:100%;height:100%;object-fit:contain;display:block}
+.ways.three{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.ways.three{grid-template-columns:1fr}}
+html[lang="pt-PT"] .d-xl,html[lang="pt-PT"] .d-l,html[lang="pt-PT"] .d-m,html[lang="pt-PT"] .d-s,html[lang="pt-PT"] .d-xs,html[lang="pt-PT"] h1,html[lang="pt-PT"] h2,html[lang="pt-PT"] h3,html[lang="pt-PT"] h4{line-height:1.08}
+.bar .lang{margin-left:auto;margin-right:12px;display:flex;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}.bar .lang button{font-family:var(--mono);font-size:11px;letter-spacing:.14em;background:transparent;color:var(--t2,#AAAAAA);border:0;padding:9px 12px;cursor:pointer}.bar .lang button.on{background:var(--paper);color:#151515}@media(max-width:700px){.bar .lang{margin-right:8px}.bar .lang button{padding:8px 9px;font-size:10px}}</style></head><body>
+<header class="bar"><a class="logo" href="#cover"><img src="img/logo.png" alt="204 No-Content"></a><div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="pt">PT</button></div><a class="btn" href="#cta">Get a quote ↓</a></header><nav class="dots" id="dots"></nav>
+
+<div class="urgent"><span class="l">Holiday Rush · limited December dates · first to book, first served</span><span class="s">Holiday Rush · limited dates · book now</span></div>
+<section id="cover" class="red" data-name="Cover">
+  <div class="pic"><img src="img/ev_laugh2.jpg" style="object-position:4% 50%" alt="Two guests laughing at their AI portraits"></div>
+  <div class="txt">
+    <div class="snow" id="snow"></div>
+    <span class="tag rv">Christmas · New Year · Year-end parties · 2026</span>
+    <h1 class="rv d1">Memories even the champagne <span class="big-red">can’t erase.</span></h1>
+    <p class="lead rv d2">Real memories are made together. Our Magic Booth turns your team into the stars of a festive world, and sends every guest home holding the proof.</p>
+    <p class="rv d3" style="margin-top:26px"><a class="btn pri" href="#cta">Get a quote ↓</a></p>
+  </div>
+</section>
+
+<section id="rush" class="red" data-name="Holiday Rush">
+  <span class="tag rv">The Holiday Rush · booked in days</span>
+  <h2 class="rv d1">Last minute? <span class="big-red">Not a problem.</span></h2>
+  <div class="ways" style="margin-top:32px">
+    <div class="way rv d1"><span class="label" style="color:#d79a9a">Fastest · lower price</span><h4>Ready-made</h4><p>Choose from our ready holiday worlds and one of three holiday frames. Add your logo and your own line of text. Done.</p></div>
+    <div class="way rv d2"><span class="label" style="color:#d79a9a">Made for you · within days</span><h4>Custom</h4><p>Holiday worlds written around your company, and a frame hand-designed by our designer. Still fast, just more yours.</p></div>
+  </div>
+  <div class="rush">
+    <div class="rv"><span class="label">Day 1</span><h4>Discovery call</h4><p>Date and venue.</p></div>
+    <div class="rv d1"><span class="label">Next days</span><h4>We style it</h4><p>Ready-made or custom worlds, plus your frame.</p></div>
+    <div class="rv d2"><span class="label">Before the party</span><h4>You sign off</h4><p>You see real test portraits and approve every style.</p></div>
+    <div class="rv d3"><span class="label">Party night</span><h4>Memories in hand</h4><p>Run by us on site (Lisbon only), or by you with our remote support.</p></div>
+  </div>
+</section>
+
+<section id="why" data-name="Why">
+  <div class="split">
+    <div>
+      <span class="tag rv">Why a booth</span>
+      <h2 class="rv d1">A quick and fun activity.</h2>
+      <p class="lead rv d2">A 40-second interaction that brings laughs and fun moments for your whole team.</p>
+      <div class="probs">
+        <div class="prob rv d1"><span class="n">01</span><div><h4>Everyone joins in</h4><p>Colleagues queue together, cheer each other on and swap prints. It gets the whole room mixing.</p></div></div>
+        <div class="prob rv d2"><span class="n">02</span><div><h4>A gift they actually keep</h4><p>A printed portrait of themselves in a festive world, branded to your company. It ends up on the fridge, not in a drawer.</p></div></div>
+        <div class="prob rv d3"><span class="n">03</span><div><h4>Instagrammable content</h4><p>Highly shareable content for the people taking part and everyone around them. Plus access to the full gallery after the party.</p></div></div>
+      </div>
+    </div>
+    <img class="tilt rv d2" src="img/ev_couple.jpg" alt="Two guests holding up their printed AI portraits">
+  </div>
+  <div class="foot micro"><span>© 204.ai · A brand of Dao Llama Labs AG · Zug, Switzerland · 2026</span><span>Confidential</span></div>
+</section>
+
+<section id="how" data-name="The night">
+  <span class="tag rv">How the night goes</span>
+  <h2 class="rv d1">Forty seconds. One unforgettable photo.</h2>
+  <div class="steps" id="steps">
+    <div class="step on rv"><div class="im"><img src="img/ev_laugh.jpg" alt="Guest smiling at her portrait"></div><div class="t"><span class="label">01</span><h4>Step up</h4><p>No app, no sign-up. Guests see themselves on the big screen.</p></div></div>
+    <div class="step rv d1"><div class="im"><img src="img/ev_smile.jpg" alt="Guest framed on screen with the word Smile"></div><div class="t"><span class="label">02</span><h4>3, 2, 1, smile</h4><p>A countdown and a snap. Retake as often as they like.</p></div></div>
+    <div class="step rv d2"><div class="im"><img src="img/ev_generating.jpg" style="object-position:100% 50%" alt="Portraits being generated"></div><div class="t"><span class="label">03</span><h4>Into the festive world</h4><p>AI reimagines them in your holiday theme, right there on site.</p></div></div>
+    <div class="step rv d3"><div class="im"><img src="img/ev_twoprints.jpg" alt="Guest holding two prints"></div><div class="t"><span class="label">04</span><h4>Print in hand</h4><p>A branded print to take home (optional), plus a QR copy for their phone.</p></div></div>
+  </div>
+  <div class="timer meta rv d2"><span>Whole experience <b>~40 s per guest</b></span><span>Prints <b>optional</b></span><span>Retake <b>anytime</b></span></div>
+</section>
+
+<section id="worlds" class="red" data-name="Holiday worlds">
+  <div class="styles">
+    <div>
+      <span class="tag rv">Holiday worlds</span>
+      <h2 class="rv d1">Examples.</h2>
+      <div class="chips rv d2" id="wchips">
+      <button class="chip on" data-a="winter" data-b="winter" data-t="Winter wonderland" data-d="A fairy-light castle, deep snow and a cosy fur hood.">Winter wonderland</button>
+      <button class="chip" data-a="gala" data-b="gala" data-t="1920s gala" data-d="Jazz-age glamour: chandeliers, fringe and a champagne tower.">1920s gala</button>
+      <button class="chip" data-a="norway" data-b="norway" data-t="Nordic cabin" data-d="A hand-drawn cabin with knitwear, fairy lights and a crackling fire.">Nordic cabin</button>
+      <button class="chip" data-a="retro" data-b="retro" data-t="Retro office party" data-d="Seventies corduroy, streamers and punch, shot on old film.">Retro office party</button>
+      <button class="chip" data-a="snow" data-b="snow" data-t="Snow-globe" data-d="Every guest tiny and smiling inside their own snow globe.">Snow-globe</button>
+      <button class="chip" data-a="newyear" data-b="newyear" data-t="Fireworks" data-d="The midnight countdown, fireworks and confetti over the city.">Fireworks</button>
+      <button class="chip" data-a="glitter" data-b="glitter" data-t="Champagne &amp; glitter" data-d="Gold, sparkle and a champagne tower for a black-tie night.">Champagne &amp; glitter</button>
+      <button class="chip" data-a="ornament" data-b="glitter" data-t="Christmas ornament" data-d="Your face as a hand-painted bauble on the tree.">Christmas ornament</button>
+      <button class="chip" data-a="sweater" data-b="gala" data-t="Christmas jumper" data-d="Your portrait knitted into a festive jumper.">Christmas jumper</button>
+      <button class="chip" data-a="label" data-b="gala" data-t="Champagne label" data-d="Your face on your very own vintage bottle.">Champagne label</button>
+      <button class="chip" data-a="wrap" data-b="retro" data-t="Gift wrap" data-d="Wrapping paper covered in your face. Perfect for the boss.">Gift wrap</button>
+      </div>
+    </div>
+    <div class="ba rv d2" id="ba">
+      <img id="before" src="img/hb_winter.jpg" alt="Guest portrait before">
+      <img class="after" id="after" src="img/ha_winter.jpg" alt="Guest portrait in a holiday world">
+      <div class="h" id="handle"><span class="ibtn">← →</span></div>
+      <span class="lb l label">Before</span><span class="lb r label">After</span>
+    </div>
+  </div>
+  <span class="label rv" style="color:var(--t3);margin-top:44px;display:block">Choose your frame</span>
+  <div class="worlds rv d1" style="margin-top:14px">
+    <div class="wd"><img class="fr" src="img/frame1.jpg" alt="Frame 01: example holiday frame with logo space"><div class="t"><h4>Frame 01</h4><p>Ready-made. Add your logo and a line of text.</p></div></div>
+    <div class="wd"><img class="fr" src="img/frame2.jpg" alt="Frame 02: example holiday frame with logo space"><div class="t"><h4>Frame 02</h4><p>Ready-made. Add your logo and a line of text.</p></div></div>
+    <div class="wd"><img class="fr" src="img/frame3.jpg" alt="Frame 03: example New Year frame with logo space"><div class="t"><h4>Frame 03</h4><p>Ready-made. Add your logo and a line of text.</p></div></div>
+  </div>
+  <p class="hint meta rv">Want something unique? Our designer hand-designs a frame for you in the Custom package.</p>
+</section>
+
+<section id="package" data-name="Packages">
+  <span class="tag rv">Holiday packages</span>
+  <h2 class="rv d1">Two ways to make the night.</h2>
+  <div class="pk even">
+    <div class="detail paper rv">
+      <h3>Ready-made holiday</h3>
+      <div class="meta">from €1,800 · one evening, up to <span class="tbc">~4 hours</span></div>
+      <ul>
+        <li>Magic Booth with <span class="tbc">3</span> ready-made holiday worlds</li>
+        <li>Choice of 3 holiday frames, with your logo and text</li>
+        <li>Instant prints (optional) <span class="tbc">(how many?)</span> + QR to phone</li>
+        <li>Full gallery after the party</li>
+        <li>Fastest Holiday Rush turnaround</li>
+      </ul>
+    </div>
+    <div class="detail paper rv d1">
+      <h3>Custom holiday</h3>
+      <div class="meta"><a href="#cta" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Get a quote</a> · one evening, up to <span class="tbc">~4 hours</span></div>
+      <ul>
+        <li>6 custom prompts</li>
+        <li>Choice of 1 frame</li>
+        <li>Instant prints (optional) + QR to phone</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="games" data-name="Christmas Games">
+  <span class="tag rv">Add-on · Christmas Games</span>
+  <h2 class="rv d1">Get the whole room moving.</h2>
+  <p class="lead rv d2">Six motion-tracking games guests play with nothing but their body. No controller, no app, no touching a screen. Just a camera, a big screen, and your team waving their arms at it.</p>
+  <div class="gvid rv d2"><video src="img/game_clip.mp4" poster="img/game_poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Christmas Games in action"></video></div>
+  <p class="hint meta rv">Add it to either holiday package from <span class="tbc">€TBC</span>. Your logo and colours on the start screen.</p>
+</section>
+
+<section id="safe" data-name="Safe & private">
+  <span class="tag rv">Safe &amp; private</span>
+  <h2 class="rv d1">Your HR and legal teams will love this.</h2>
+  <p class="lead rv d2">Our custom booth runs entirely on local hardware. Your team’s faces never leave the machine.</p>
+  <div class="safe">
+    <div class="sf rv"><span class="label">01</span><h4>Zero cloud exposure</h4><p>No cloud APIs or third-party AI services. Images never leave the machine during generation.</p></div>
+    <div class="sf rv d1"><span class="label">02</span><h4>No AI training on faces</h4><p>All processing happens on the device. Nobody keeps the data or trains a model on it. And every style is original: no film characters, celebrities or other brands, and you approve each one first.</p></div>
+    <div class="sf rv d2"><span class="label">03</span><h4>You choose what’s kept</h4><p>Delete every image right after printing, or keep a local archive for your gallery. Saved files sit in a password-protected folder and never travel over unencrypted networks.</p></div>
+  </div>
+</section>
+
+<section id="case" data-name="Case study">
+  <div class="case">
+    <div>
+      <span class="tag rv">Case study · Conference · Portugal</span>
+      <h2 class="rv d1">Standvirtual: hundreds of guests, one shared story.</h2>
+      <div class="cs">
+        <div class="rv d1"><span class="label">The brief</span><p>A company conference themed “Back to the Future”.</p></div>
+        <div class="rv d2"><span class="label">What we did</span><p>An opening film on the main screen, then a Magic Booth turning every guest into a future driver in the same world.</p></div>
+        <div class="rv d3"><span class="label">The result</span><p>Guests queued together, pinned their portraits to a shared wall, and took one home.</p></div>
+      </div>
+    </div>
+    <div class="mosaic rv d2">
+      <video class="big" src="img/booth_clip.mp4" poster="img/booth_poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Magic Booth at an event"></video>
+      <img src="img/sv_wall.jpg" alt="Guests pinning portraits to the print wall">
+      <img src="img/sv_booth.jpg" alt="Guests with their portrait">
+    </div>
+  </div>
+</section>
+
+<section id="more" class="red" data-name="Go bigger">
+  <span class="tag rv">Go bigger this holiday</span>
+  <h2 class="rv d1">Turn the whole venue festive.</h2>
+  <p class="lead rv d2">Add one of our installations to the booth, or use them as living holiday decor.</p>
+  <div class="works">
+    <div class="wk rv"><div class="im"><img src="img/mirror.jpg" alt="Guests dancing in front of the Magic Mirror"></div><div class="t"><span class="label">Dance floor</span><h3>Magic Mirror</h3><p>A big screen where guests turn into snow spirits, elves or gala stars, live, as they move. The moment everyone films.</p></div></div>
+    <div class="wk rv d1"><div class="im"><img src="img/p_mazarine.jpg" alt="Animated painting"></div><div class="t"><span class="label">Living decor</span><h3>Augmented Art</h3><p>Paintings, walls and the Christmas tree come alive with subtle projected animation: snow falling, lights twinkling, scenes that breathe.</p></div></div>
+    <div class="wk rv d2"><div class="im"><img src="img/p_yard-episode.jpg" alt="Projected visuals"></div><div class="t"><span class="label">Atmosphere</span><h3>Live Visuals</h3><p>Festive projections on walls, ceilings or the building outside, cued live to the music all night.</p></div></div>
+  </div>
+</section>
+
+<section id="faq" data-name="Good to know">
+  <div class="faqgrid">
+    <div><span class="tag rv">Good to know</span><h2 class="rv d1">Before you ask.</h2></div>
+    <div class="faq rv d2">
+      <details class="fq"><summary><h4>Is it really not too late?</h4><span class="ibtn">+</span></summary><p class="a">Not if you book now. Ready-made worlds and frames only need your logo and text, and custom designs can be ready within days. Rush slots are limited and go first come, first served.</p></details>
+      <details class="fq"><summary><h4>How much space does it need?</h4><span class="ibtn">+</span></summary><p class="a">Just a safe spot for the laptop and printer, and a normal power socket. The screen size is flexible.</p></details>
+      <details class="fq"><summary><h4>Does it need Wi-Fi?</h4><span class="ibtn">+</span></summary><p class="a">The AI runs locally, but stable Wi-Fi is required for the web app.</p></details>
+      <details class="fq"><summary><h4>Do you need to be there?</h4><span class="ibtn">+</span></summary><p class="a">Your choice: we run it on site, or you run it yourselves with our remote support. Each option is priced differently.</p></details>
+      <details class="fq"><summary><h4>What if someone doesn’t like their photo?</h4><span class="ibtn">+</span></summary><p class="a">You choose when to print. If you don’t like it, you can retake it as many times as you like.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="who" data-name="Who we are"><div class="who"><div>
+<span class="tag rv">Who's behind it</span><h2 class="rv d1">A small team that shows up.</h2><p class="lead rv d2">An international team of artists and engineers, with 30+ productions in Europe and the USA · 50+ partners &amp; clients.</p>
+<p class="meta rv d3">Zug, Switzerland · RnA Studio, Lisbon</p></div><div class="faces rv d2"><img src="img/t_dimi.jpg" alt="Dimitri De Jonghe" style="object-position:50%"><img src="img/t_cintia.jpg" alt="Cintia Aguiar Pinto" style="object-position:30%"><img src="img/t_cece.jpg" alt="Cecilia Hübinette" style="object-position:50%"><img src="img/t_dan.jpg" alt="Dan Brown" style="object-position:50%"><img src="img/t_laure.jpg" alt="Laura Coimbra" style="object-position:28%"><img src="img/t_flo.jpg" alt="Florian Hinze" style="object-position:30% 55%"></div></div><div class="logostrip rv d2"><img src="img/logos/logo-standvirtual-clean-cd3dc8.webp" alt="Standvirtual"><img src="img/logos/kbc-400-9e95b84803.webp" alt="KBC"><img src="img/logos/logo-wall-samsung-dcb194.webp" alt="Samsung"><img src="img/logos/logo-wall-motelx-430e4d.webp" alt="MOTELX"><img src="img/logos/logo-nfc-602094.webp" alt="NFC"><img src="img/logos/logo-techweek-9b34b3.webp" alt="Portugal Tech Week"><img src="img/logos/logo-zeb-35b6f4.webp" alt="ZEB"><img src="img/logos/logo-alanwatts-b7a6d3.webp" alt="Alan Watts Organization"><img src="img/logos/logo-eclipse-0cccb8.webp" alt="Texas Eclipse"><img src="img/logos/logo-wall-hulaween-4c1a09.webp" alt="Hulaween"><img src="img/logos/logo-yard-0b4004.webp" alt="YARD"><img src="img/logos/logo-screenix-solid-8a1edd.webp" alt="Screenix"><img src="img/logos/logo-tmrw-43c913.webp" alt="Institute for Tomorrow"></div></section>
+
+<section id="cta" data-name="Contact"><div class="pic"><img data-px="0.06" src="img/ev_laugh.jpg" alt=""></div><div class="txt">
+<span class="tag rv">Book by <span class="tbc">TBC</span></span><h2 class="d-l rv d1">Don’t miss the Holiday Rush.</h2><p class="lead rv d2">Send us your date and venue. December slots go fast, so the earlier you ask, the more choice you have.</p>
+<form class="form rv d3" id="form" data-intro="Is our date still free for the holiday package?"><input placeholder="Company" data-l="Company: " required><input placeholder="Party date and city" data-l="Date: "><select data-l="Occasion: "><option>Christmas party</option><option>New Year’s Eve</option><option>January kick-off or awards</option><option>Other</option></select><select data-l="Package: "><option>Ready-made holiday</option><option>Custom holiday</option><option>Not sure yet</option></select><select data-l="Christmas Games add-on: "><option>Yes, add the games</option><option>Maybe, tell me more</option><option>No thanks</option></select><select data-l="Run by: "><option>We’d like you to run it on site</option><option>We’d run it ourselves with remote support</option><option>Not sure yet</option></select><button class="btn pri" type="submit">Get a quote →</button></form>
+<div class="sent" id="sent"><p>Your email app should open with this message to hello@204.ai. If it didn’t, copy it and send it yourself:</p><textarea id="msg" readonly></textarea><button class="btn" id="copy" type="button">Copy</button></div>
+<div class="contact rv d4"><span class="label">Email</span><span class="meta">hello@204.ai</span><span class="label">Web</span><a class="tlink" href="https://204.ai" target="_blank" rel="noopener">204.ai ↗</a><span class="label">Based in</span><span class="meta">Zug, Switzerland · studio in Lisbon</span></div></div></section>
+
+<script>
+(function(){
+var T={"Holiday Party Magic Booth — 204.ai": "Festas de Fim de Ano · Magic Booth — 204.ai", "Get a quote ↓": "Pedir orçamento ↓", "Get a quote →": "Pedir orçamento →", "Get a quote": "Pedir orçamento", "Holiday Rush · limited December dates · first to book, first served": "Época festiva · datas de dezembro limitadas · por ordem de reserva", "Holiday Rush · limited dates · book now": "Datas limitadas · reserve já", "Christmas · New Year · Year-end parties · 2026": "Natal · Passagem de Ano · Festas de fim de ano · 2026", "Memories even the champagne": "Memórias que nem o champanhe", "can’t erase.": "consegue apagar.", "Real memories are made together. Our Magic Booth turns your team into the stars of a festive world, and sends every guest home holding the proof.": "As verdadeiras memórias criam-se juntos. A Magic Booth da 204 transforma a sua equipa nas estrelas de um mundo festivo, e cada convidado leva a prova para casa.", "The Holiday Rush · booked in days": "Época festiva · pronto em dias", "Last minute?": "Em cima da hora?", "Not a problem.": "Não há problema.", "Fastest · lower price": "Mais rápido · preço mais baixo", "Ready-made": "Pré-definido", "Choose from our ready holiday worlds and one of three holiday frames. Add your logo and your own line of text. Done.": "Escolha entre os mundos festivos prontos e uma de três molduras. Junte o seu logótipo e uma frase à sua escolha.", "Made for you · within days": "Feito para si · em poucos dias", "Custom": "Personalizado", "Holiday worlds written around your company, and a frame hand-designed by our designer. Still fast, just more yours.": "Mundos festivos criados à medida da sua empresa e uma moldura desenhada à mão pela designer da 204. Igualmente rápido, mas ainda mais seu.", "Day 1": "Dia 1", "Discovery call": "Chamada inicial", "Date and venue.": "Data e local.", "Next days": "Dias seguintes", "We style it": "Criação do estilo", "Ready-made or custom worlds, plus your frame.": "Mundos pré-definidos ou personalizados, mais a sua moldura.", "Before the party": "Antes da festa", "You sign off": "Aprovação", "You see real test portraits and approve every style.": "Vê retratos de teste reais e aprova cada estilo.", "Party night": "Noite da festa", "Memories in hand": "Memórias na mão", "Run by us on site (Lisbon only), or by you with our remote support.": "Operado pela equipa 204 no local (só em Lisboa), ou pelo cliente com apoio remoto da 204.", "Why a booth": "Porquê uma booth", "A quick and fun activity.": "Uma atividade rápida e divertida.", "A 40-second interaction that brings laughs and fun moments for your whole team.": "Uma interação de 40 segundos que traz gargalhadas e momentos divertidos a toda a equipa.", "Everyone joins in": "Todos participam", "Colleagues queue together, cheer each other on and swap prints. It gets the whole room mixing.": "Os colegas fazem fila juntos, apoiam-se uns aos outros e trocam fotografias. Põe a sala inteira a conviver.", "A gift they actually keep": "Uma lembrança que guardam mesmo", "A printed portrait of themselves in a festive world, branded to your company. It ends up on the fridge, not in a drawer.": "Um retrato impresso de si próprios num mundo festivo, com a marca da sua empresa. Acaba no frigorífico, não numa gaveta.", "Instagrammable content": "Instagramável", "Highly shareable content for the people taking part and everyone around them. Plus access to the full gallery after the party.": "Conteúdo altamente partilhável para quem participa e para quem está à volta. Acesso à galeria completa depois da festa.", "© 204.ai · A brand of Dao Llama Labs AG · Zug, Switzerland · 2026": "© 204.ai · Uma marca da Dao Llama Labs AG · Zug, Suíça · 2026", "Confidential": "Confidencial", "How the night goes": "Como corre a noite", "Forty seconds. One unforgettable photo.": "Quarenta segundos. Uma fotografia inesquecível.", "Step up": "Aproxime-se", "No app, no sign-up. Guests see themselves on the big screen.": "Sem aplicação nem registo. Os convidados veem-se no ecrã grande.", "3, 2, 1, smile": "3, 2, 1, sorria", "A countdown and a snap. Retake as often as they like.": "Uma contagem decrescente e um clique. Podem repetir as vezes que quiserem.", "Into the festive world": "Para dentro do mundo festivo", "AI reimagines them in your holiday theme, right there on site.": "A IA reimagina-os no tema festivo, ali mesmo no local.", "Print in hand": "Fotografia na mão", "A branded print to take home (optional), plus a QR copy for their phone.": "Uma impressão com a sua marca para levar para casa (opcional), e uma cópia por QR para o telemóvel.", "optional": "opcional", "Instant prints (optional)": "Impressões instantâneas (opcional)", "Instant prints (optional) + QR to phone": "Impressões instantâneas (opcional) + QR para o telemóvel", "Guest smiling at her portrait": "Convidada a sorrir para o seu retrato", "Whole experience": "Experiência completa", "~40 s per guest": "~40 s por convidado", "Prints": "Impressão", "instant": "instantânea", "Retake": "Repetir", "anytime": "sempre que quiser", "Holiday worlds": "Mundos festivos", "Examples.": "Exemplos.", "Winter wonderland": "País das maravilhas de inverno", "1920s gala": "Gala anos 20", "Nordic cabin": "Cabana nórdica", "Retro office party": "Festa de escritório retro", "Snow-globe": "Globo de neve", "Fireworks": "Fogo de artifício", "Champagne & glitter": "Champanhe e brilhos", "Christmas ornament": "Bola de Natal", "Christmas jumper": "Camisola de Natal", "Champagne label": "Rótulo de champanhe", "Gift wrap": "Papel de embrulho", "Before": "Antes", "After": "Depois", "Choose your frame": "Escolha a sua moldura", "Frame 01": "Moldura 01", "Frame 02": "Moldura 02", "Frame 03": "Moldura 03", "Ready-made. Add your logo and a line of text.": "Pré-definida. Junte o seu logótipo e uma frase.", "Want something unique? Our designer hand-designs a frame for you in the Custom package.": "Quer algo único? No pacote Personalizado, a designer da 204 desenha uma moldura à mão para si.", "Holiday packages": "Pacotes festivos", "Two ways to make the night.": "Duas formas de fazer a noite.", "Ready-made holiday": "Festivo pré-definido", "from €1,800 · one evening, up to": "desde 1800 € · uma noite, até", "Guest framed on screen with the word Smile": "Convidada enquadrada no ecrã com a palavra Smile", "~4 hours": "~4 horas", "Magic Booth with": "Magic Booth com", "ready-made holiday worlds": "mundos festivos pré-definidos", "Choice of 3 holiday frames, with your logo and text": "Escolha entre 3 molduras festivas, com o seu logótipo e texto", "Instant prints": "Impressões instantâneas", "(how many?)": "(quantas?)", "+ QR to phone": "+ QR para o telemóvel", "Full gallery after the party": "Galeria completa depois da festa", "Fastest Holiday Rush turnaround": "Entrega mais rápida na época festiva", "Custom holiday": "Festivo personalizado", "from": "desde", "€TBC": "€ a definir", "· one evening, up to": "· uma noite, até", "6 custom prompts": "6 prompts personalizados", "Choice of 1 frame": "Escolha de 1 moldura", "Instant prints + QR to phone": "Impressões instantâneas + QR para o telemóvel", "Your way · priced differently": "À sua maneira · preços diferentes", "Option A": "Opção A", "We run it": "Operado pela 204", "Lisbon only. We set up, stay for the party and pack down. You don’t touch a cable.": "Só em Lisboa. A equipa 204 monta, acompanha a festa e desmonta. Não precisa de tocar num cabo.", "Option B": "Opção B", "You run it": "Operado pelo cliente", "An easy setup on your own devices, with our remote support fixing anything on the fly.": "Uma instalação simples nos seus próprios equipamentos, com o apoio remoto da 204 a resolver tudo na hora.", "Add-on · Christmas Games": "Extra · Jogos de Natal", "Get the whole room moving.": "Ponha a sala inteira a mexer.", "Six motion-tracking games guests play with nothing but their body. No controller, no app, no touching a screen. Just a camera, a big screen, and your team waving their arms at it.": "Seis jogos com deteção de movimento que os convidados jogam apenas com o corpo. Sem comandos, sem aplicação, sem tocar no ecrã. Só uma câmara, um ecrã grande e a sua equipa a abanar os braços.", "Add it to either holiday package from": "Junte-o a qualquer pacote festivo desde", ". Your logo and colours on the start screen.": ". O seu logótipo e as suas cores no ecrã inicial.", "Safe & private": "Seguro e privado", "Your HR and legal teams will love this.": "Os seus departamentos de RH e jurídico vão adorar.", "Our custom booth runs entirely on local hardware. Your team’s faces never leave the machine.": "A booth da 204 funciona totalmente em hardware local. Os rostos da sua equipa nunca saem da máquina.", "Zero cloud exposure": "Zero exposição à cloud", "No cloud APIs or third-party AI services. Images never leave the machine during generation.": "Sem APIs na cloud nem serviços de IA de terceiros. As imagens nunca saem da máquina durante a geração.", "No AI training on faces": "Sem treino de IA com rostos", "All processing happens on the device. Nobody keeps the data or trains a model on it. And every style is original: no film characters, celebrities or other brands, and you approve each one first.": "Todo o processamento acontece no equipamento. Ninguém guarda os dados nem treina modelos com eles. E todos os estilos são originais: sem personagens de filmes, celebridades ou outras marcas, e aprova cada um antes.", "You choose what’s kept": "Escolhe o que fica guardado", "Delete every image right after printing, or keep a local archive for your gallery. Saved files sit in a password-protected folder and never travel over unencrypted networks.": "Apague todas as imagens logo depois de imprimir, ou guarde um arquivo local para a galeria. Os ficheiros guardados ficam numa pasta protegida por palavra-passe e nunca circulam em redes não encriptadas.", "Case study · Conference · Portugal": "Caso de estudo · Conferência · Portugal", "Standvirtual: hundreds of guests, one shared story.": "Standvirtual: centenas de convidados, uma história partilhada.", "The brief": "O desafio", "A company conference themed “Back to the Future”.": "Uma conferência de empresa com o tema “Regresso ao Futuro”.", "What we did": "O que foi feito", "An opening film on the main screen, then a Magic Booth turning every guest into a future driver in the same world.": "Um filme de abertura no ecrã principal e depois uma Magic Booth que transformou cada convidado num condutor do futuro, no mesmo mundo.", "The result": "O resultado", "Guests queued together, pinned their portraits to a shared wall, and took one home.": "Os convidados fizeram fila juntos, afixaram os retratos numa parede partilhada e levaram um para casa.", "Go bigger this holiday": "Vá mais longe nesta época festiva", "Turn the whole venue festive.": "Torne todo o espaço festivo.", "Add one of our installations to the booth, or use them as living holiday decor.": "Junte uma das instalações da 204 à booth, ou use-as como decoração festiva viva.", "Dance floor": "Pista de dança", "A big screen where guests turn into snow spirits, elves or gala stars, live, as they move. The moment everyone films.": "Um ecrã grande onde os convidados se transformam em espíritos da neve, duendes ou estrelas de gala, ao vivo, enquanto se mexem. O momento que todos filmam.", "Living decor": "Decoração viva", "Paintings, walls and the Christmas tree come alive with subtle projected animation: snow falling, lights twinkling, scenes that breathe.": "Quadros, paredes e a árvore de Natal ganham vida com animação projetada subtil: neve a cair, luzes a cintilar, cenas que respiram.", "Atmosphere": "Ambiente", "Festive projections on walls, ceilings or the building outside, cued live to the music all night.": "Projeções festivas em paredes, tetos ou na fachada do edifício, sincronizadas ao vivo com a música durante toda a noite.", "Good to know": "Bom saber", "Before you ask.": "Antes que pergunte.", "Is it really not too late?": "Não é mesmo tarde demais?", "Not if you book now. Ready-made worlds and frames only need your logo and text, and custom designs can be ready within days. Rush slots are limited and go first come, first served.": "Não, se reservar já. Os mundos e molduras pré-definidos só precisam do seu logótipo e texto, e os designs personalizados podem ficar prontos em poucos dias. As vagas são limitadas e atribuídas por ordem de reserva.", "How much space does it need?": "De quanto espaço precisa?", "Just a safe spot for the laptop and printer, and a normal power socket. The screen size is flexible.": "Só um lugar seguro para o portátil e a impressora, e uma tomada normal. O tamanho do ecrã é flexível.", "Does it need Wi-Fi?": "Precisa de Wi-Fi?", "The AI runs locally, but stable Wi-Fi is required for the web app.": "A IA funciona localmente, mas é necessário Wi-Fi estável para a aplicação web.", "Do you need to be there?": "Precisam de estar presentes?", "Your choice: we run it on site, or you run it yourselves with our remote support. Each option is priced differently.": "A escolha é sua: a 204 opera no local, ou a sua equipa opera com apoio remoto da 204. Cada opção tem um preço diferente.", "What if someone doesn’t like their photo?": "E se alguém não gostar da fotografia?", "You choose when to print. If you don’t like it, you can retake it as many times as you like.": "É o convidado que escolhe quando imprimir. Se não gostar, pode repetir as vezes que quiser.", "Who's behind it": "Quem está por trás", "A small team that shows up.": "Uma equipa pequena que aparece.", "An international team of artists and engineers, with 30+ productions in Europe and the USA · 50+ partners & clients.": "Uma equipa internacional de artistas e engenheiros, com mais de 30 produções na Europa e nos EUA · mais de 50 parceiros e clientes.", "Zug, Switzerland · RnA Studio, Lisbon": "Zug, Suíça · RnA Studio, Lisboa", "Book by": "Reserve até", "TBC": "a definir", "Don’t miss the Holiday Rush.": "Não perca a época festiva.", "Send us your date and venue. December slots go fast, so the earlier you ask, the more choice you have.": "Envie a data e o local. As vagas de dezembro esgotam depressa: quanto mais cedo pedir, mais opções tem.", "Christmas party": "Festa de Natal", "New Year’s Eve": "Passagem de Ano", "January kick-off or awards": "Arranque do ano ou entrega de prémios", "Other": "Outro", "Not sure yet": "Por decidir", "Yes, add the games": "Sim, juntar os jogos", "Maybe, tell me more": "Talvez, com mais informações", "No thanks": "Não, obrigado", "We’d like you to run it on site": "Operado pela 204 no local", "We’d run it ourselves with remote support": "Operado pela própria equipa, com apoio remoto", "Your email app should open with this message to hello@204.ai. If it didn’t, copy it and send it yourself:": "A sua aplicação de email deve abrir com esta mensagem para hello@204.ai. Se não abrir, copie-a e envie-a:", "Copy": "Copiar", "Based in": "Sede", "Zug, Switzerland · studio in Lisbon": "Zug, Suíça · estúdio em Lisboa", "Cover": "Capa", "Two guests laughing at their AI portraits": "Duas convidadas a rir com os seus retratos de IA", "Holiday Rush": "Época festiva", "Why": "Porquê", "Two guests holding up their printed AI portraits": "Dois convidados a mostrar os retratos de IA impressos", "The night": "A noite", "Guest finding her face in the frame on screen": "Convidada a encontrar o rosto na moldura do ecrã", "Countdown on screen": "Contagem decrescente no ecrã", "Portraits being generated": "Retratos a ser gerados", "Guest holding two prints": "Convidada com duas impressões", "A fairy-light castle, deep snow and a cosy fur hood.": "Um castelo iluminado, neve profunda e um capuz de pelo aconchegante.", "Jazz-age glamour: chandeliers, fringe and a champagne tower.": "O glamour da era do jazz: lustres, franjas e uma torre de champanhe.", "A hand-drawn cabin with knitwear, fairy lights and a crackling fire.": "Uma cabana desenhada à mão, com malhas, luzinhas e uma lareira acesa.", "Seventies corduroy, streamers and punch, shot on old film.": "Bombazina dos anos 70, serpentinas e ponche, como num rolo antigo.", "Every guest tiny and smiling inside their own snow globe.": "Cada convidado em miniatura, a sorrir dentro do seu próprio globo de neve.", "The midnight countdown, fireworks and confetti over the city.": "A contagem decrescente da meia-noite, fogo de artifício e confettis sobre a cidade.", "Gold, sparkle and a champagne tower for a black-tie night.": "Dourado, brilho e uma torre de champanhe para uma noite de gala.", "Your face as a hand-painted bauble on the tree.": "O seu rosto numa bola pintada à mão, na árvore.", "Your portrait knitted into a festive jumper.": "O seu retrato tricotado numa camisola festiva.", "Your face on your very own vintage bottle.": "O seu rosto na sua própria garrafa vintage.", "Wrapping paper covered in your face. Perfect for the boss.": "Papel de embrulho coberto com o seu rosto. Perfeito para o chefe.", "Guest portrait before": "Retrato do convidado antes", "Guest portrait in a holiday world": "Retrato do convidado num mundo festivo", "Frame 01: example holiday frame with logo space": "Moldura 01: exemplo de moldura festiva com espaço para logótipo", "Frame 02: example holiday frame with logo space": "Moldura 02: exemplo de moldura festiva com espaço para logótipo", "Frame 03: example New Year frame with logo space": "Moldura 03: exemplo de moldura de Ano Novo com espaço para logótipo", "Packages": "Pacotes", "Christmas Games": "Jogos de Natal", "Christmas Games in action": "Jogos de Natal em ação", "Case study": "Caso de estudo", "Magic Booth at an event": "Magic Booth num evento", "Guests pinning portraits to the print wall": "Convidados a afixar retratos na parede", "Guests with their portrait": "Convidados com o seu retrato", "Go bigger": "Mais longe", "Guests dancing in front of the Magic Mirror": "Convidados a dançar em frente ao Magic Mirror", "Animated painting": "Quadro animado", "Projected visuals": "Visuais projetados", "Who we are": "Quem somos", "Contact": "Contacto", "Is our date still free for the holiday package?": "A data ainda está disponível para o pacote festivo?", "Company": "Empresa", "Company:": "Empresa:", "Party date and city": "Data e cidade da festa", "Date:": "Data:", "Occasion:": "Ocasião:", "Package:": "Pacote:", "Christmas Games add-on:": "Extra Jogos de Natal:", "Run by:": "Operação:", "Copied ✓": "Copiado ✓", "Hi 204,\n\n": "Olá 204,\n\n", "Quote request": "Pedido de orçamento"};
+var lang=null;try{lang=new URLSearchParams(location.search).get('lang')||localStorage.getItem('deckLang')}catch(e){}
+lang=(lang==='pt')?'pt':'en';
+window.TR=function(s){return lang==='pt'&&T.hasOwnProperty(s)?T[s]:s};
+if(lang==='pt'){
+  document.documentElement.lang='pt-PT';
+  if(T[document.title])document.title=T[document.title];
+  var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentNode&&n.parentNode.nodeName;return (p==='SCRIPT'||p==='STYLE')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT}}),n,list=[];
+  while(n=w.nextNode())list.push(n);
+  list.forEach(function(n){var t=n.nodeValue.trim();if(t&&T.hasOwnProperty(t))n.nodeValue=n.nodeValue.replace(t,T[t])});
+  ['alt','aria-label','placeholder','data-intro','data-l','data-t','data-d','data-name','title'].forEach(function(a){
+    document.querySelectorAll('['+a+']').forEach(function(el){var v=el.getAttribute(a),t=v.trim();if(T.hasOwnProperty(t))el.setAttribute(a,v.replace(t,T[t]))})});
+}
+document.querySelectorAll('.lang button').forEach(function(b){
+  b.classList.toggle('on',b.getAttribute('data-lang')===lang);
+  b.setAttribute('aria-pressed',b.getAttribute('data-lang')===lang?'true':'false');
+  b.addEventListener('click',function(){var l=b.getAttribute('data-lang');if(l===lang)return;
+    try{localStorage.setItem('deckLang',l)}catch(e){}
+    var u=new URL(location.href);u.searchParams.set('lang',l);u.hash='';location.href=u.toString()});
+});
+})();
+</script>
+<script>
+const secs=[...document.querySelectorAll('section')],dots=document.getElementById('dots');
+secs.forEach(s=>{const a=document.createElement('a');a.href='#'+s.id;a.innerHTML='<span>'+s.dataset.name+'</span>';dots.appendChild(a)});
+const da=[...dots.children];
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target);da.forEach((d,j)=>d.classList.toggle('on',i===j))}}),{threshold:.5});secs.forEach(s=>so.observe(s));
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}}),{threshold:.15});document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;const y=scrollY+innerHeight*.4;let i=secs.findIndex(s=>s.offsetTop+s.offsetHeight>y);
+ if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();secs[Math.min(i+1,secs.length-1)].scrollIntoView()}if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();secs[Math.max(i-1,0)].scrollIntoView()}});
+document.querySelectorAll('.faq details').length;
+const fm=document.getElementById('form');if(fm){fm.addEventListener('submit',e=>{e.preventDefault();const lines=[...fm.querySelectorAll('input,select')].map(x=>(x.dataset.l||'')+(x.value||'—'));
+ const body=TR('Hi 204,\n\n')+lines.join('\n')+'\n\n'+fm.dataset.intro;document.getElementById('msg').value=body;const co=(fm.querySelector('input')||{}).value||'';location.href='mailto:hello@204.ai?subject='+encodeURIComponent(TR('Quote request')+(co?' · '+co:''))+'&body='+encodeURIComponent(body);document.getElementById('sent').style.display='block'});
+ document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('msg').value);document.getElementById('copy').textContent=TR('Copied ✓')}catch(e){document.getElementById('msg').select()}})}
+const sn=document.getElementById('snow');for(let i=0;i<60;i++){const f=document.createElement('i');f.style.left=Math.random()*100+'%';const s=1+Math.random()*3;f.style.width=f.style.height=s+'px';f.style.animationDuration=(8+Math.random()*10)+'s';f.style.animationDelay=(-Math.random()*15)+'s';sn.appendChild(f)}
+const st=[...document.querySelectorAll('.step')];let si=0,stimer;function setStep(i){si=i;st.forEach((s,j)=>s.classList.toggle('on',j===i))}
+function cycle(){clearInterval(stimer);stimer=setInterval(()=>setStep((si+1)%4),2600)}st.forEach((s,i)=>{s.addEventListener('mouseenter',()=>{setStep(i);cycle()});s.addEventListener('click',()=>{setStep(i);cycle()})});cycle();
+const ba=document.getElementById('ba'),after=document.getElementById('after'),before=document.getElementById('before'),hd=document.getElementById('handle');
+function setP(p){after.style.clipPath='inset(0 0 0 '+p+'%)';hd.style.left=p+'%'}
+function setPos(x){const r=ba.getBoundingClientRect();setP(Math.max(0,Math.min(100,(x-r.left)/r.width*100)))}
+let drag=false;ba.addEventListener('pointerdown',e=>{drag=true;ba.setPointerCapture(e.pointerId);setPos(e.clientX)});ba.addEventListener('pointermove',e=>{if(drag)setPos(e.clientX)});ba.addEventListener('pointerup',()=>drag=false);
+const bo=new IntersectionObserver(es=>{if(es[0].isIntersecting){bo.disconnect();let t=0;const iv=setInterval(()=>{t+=.04;setP(50+30*Math.sin(t*3)*Math.exp(-t));if(t>2.2||drag)clearInterval(iv)},30)}},{threshold:.5});bo.observe(ba);
+const cs=[...document.querySelectorAll('#wchips .chip')];cs.forEach(c=>{const i=new Image();i.src='img/ha_'+c.dataset.a+'.jpg'});
+cs.forEach(c=>c.addEventListener('click',()=>{cs.forEach(x=>x.classList.remove('on'));c.classList.add('on');
+ const nb='img/hb_'+c.dataset.b+'.jpg',na='img/ha_'+c.dataset.a+'.jpg';after.style.opacity=0;if(!before.src.endsWith(nb))before.style.opacity=0;
+ setTimeout(()=>{let n=0;const done=()=>{if(++n==2){after.style.opacity=1;before.style.opacity=1}};after.onload=done;before.onload=done;after.src=na;if(before.src.endsWith(nb))done();else before.src=nb},200)}));
+</script>
+<script>
+// ===== scroll motion (shared) =====
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 1. headlines rise word by word
+  document.querySelectorAll('h1,h2').forEach(h=>{
+    const walk=n=>{[...n.childNodes].forEach(c=>{
+      if(c.nodeType===3){const f=document.createDocumentFragment();
+        c.textContent.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(w));return}
+          const o=document.createElement('span');o.className='ln';const i=document.createElement('span');i.textContent=w;o.appendChild(i);f.appendChild(o)});
+        c.replaceWith(f)} else if(c.nodeType===1&&c.tagName!=='BR'&&!c.classList.contains('tbc'))walk(c)})};
+    walk(h);
+    h.querySelectorAll('.ln>span').forEach((s,i)=>s.style.transitionDelay=(i*0.06)+'s');
+    h.classList.remove('rv','d1','d2','d3','d4');
+  });
+  const lo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('lines-in');lo.unobserve(e.target)}}),{threshold:.3});
+  document.querySelectorAll('h1,h2').forEach(h=>lo.observe(h));
+  // 2. images wipe open from the top
+  const wsel='.tilt,.mosaic>img,.mosaic>.vt,.pc .im,.tc,.ac .im,.step .im,.fc .im,.rec .im,.vid,.tm .av,#cta .pic';
+  // observe the (unclipped) parent, reveal its wiped children
+  const kids=new Map();
+  const wo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){(kids.get(e.target)||[]).forEach((el,i)=>setTimeout(()=>el.classList.add('in'),i*90));wo.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll(wsel).forEach(el=>{el.classList.add('wipe');const p=el.parentElement;if(!kids.has(p)){kids.set(p,[]);wo.observe(p)}kids.get(p).push(el)});
+  // 3. gentle parallax
+  if(reduce||innerWidth<700)return;
+  const px=[...document.querySelectorAll('[data-px]')];
+  let tick=false;
+  function upd(){const vh=innerHeight;px.forEach(el=>{const r=el.getBoundingClientRect();const k=parseFloat(el.dataset.px);const c=Math.max(-vh,Math.min(vh,r.top+r.height/2-vh/2));el.style.transform='translateY('+(-c*k).toFixed(1)+'px) scale(1.14)'});tick=false}
+  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});upd();
+})();
+
+</script>
+</body></html>
