@@ -537,34 +537,36 @@ html[lang="pt-PT"] .d-xl,html[lang="pt-PT"] .d-l,html[lang="pt-PT"] .d-m,html[la
 @media(max-width:900px){.worlds.four{grid-template-columns:repeat(2,1fr)}}
 .big-red{color:#e8343a;background:linear-gradient(180deg,#ff5a5f 0%,#d61f26 55%,#a3121a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 18px rgba(214,31,38,.45)) drop-shadow(0 2px 0 rgba(212,175,95,.55))}
 /* festive layer */
-.gsnow{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:45;opacity:.55}
-.lights{position:absolute;left:0;right:0;top:calc(33px + 58px);height:56px;z-index:6;pointer-events:none}
-.lights svg{position:absolute;inset:0;width:100%;height:100%}
-.lights i{position:absolute;top:0;width:11px;height:17px;margin-left:-5.5px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--c);transform:translateY(calc(var(--y,30px)));box-shadow:0 0 10px 3px var(--c);animation:tw 2.4s ease-in-out infinite}
-.lights i::before{content:"";position:absolute;top:-4px;left:3px;width:5px;height:5px;background:#1d241d;border-radius:1px}
-@keyframes tw{0%,100%{opacity:1;filter:brightness(1.15)}50%{opacity:.45;filter:brightness(.7);box-shadow:0 0 4px 1px var(--c)}}
-.deco{position:absolute;pointer-events:none;z-index:3;height:auto;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
-.st1{width:74px;right:8%;top:20%;transform:rotate(12deg);animation:fl 6s ease-in-out infinite}
-.st2{width:40px;right:22%;top:13%;transform:rotate(-14deg);animation:fl 7s ease-in-out infinite reverse}
-.st3{width:28px;right:5%;top:42%;animation:fl 5s ease-in-out infinite}
+.gsnow{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:45;opacity:.4}
+.deco{position:absolute;pointer-events:none;z-index:0;height:auto;opacity:.9;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+section>:not(.deco):not(.foot):not(.pic),#cover .txt>:not(.deco):not(.snow),#cta .txt>*{position:relative;z-index:1}
+.st1{width:74px;right:8%;top:22%;transform:rotate(12deg);animation:fl 6s ease-in-out infinite}
+.st2{width:40px;right:20%;top:17%;transform:rotate(-14deg);animation:fl 7s ease-in-out infinite reverse}
+.st3{width:28px;right:5%;top:40%;animation:fl 5s ease-in-out infinite}
 .st4{width:90px;right:6%;top:14%;transform:rotate(-10deg);animation:fl 7s ease-in-out infinite}
 .st5{width:44px;right:16%;top:8%;transform:rotate(16deg);animation:fl 6s ease-in-out infinite reverse}
 @keyframes fl{0%,100%{translate:0 0}50%{translate:0 -10px}}
 .orn-r{width:150px;right:3%;top:70px;transform-origin:50% 0;animation:sw 5s ease-in-out infinite}
 @keyframes sw{0%,100%{rotate:-3deg}50%{rotate:3deg}}
-.holly-r{width:170px;right:2%;bottom:30px;transform:rotate(-8deg);opacity:.9}
-.holly-l{width:150px;left:1%;bottom:24px;transform:scaleX(-1) rotate(-8deg);opacity:.9}
+.holly-r{width:170px;right:2%;bottom:30px;transform:rotate(-8deg);opacity:.75}
+.holly-l{width:150px;left:1%;bottom:24px;transform:scaleX(-1) rotate(-8deg);opacity:.75}
 .merch{display:flex;align-items:center;gap:16px;margin-top:22px;padding:16px 20px;border:1px dashed var(--line-strong)}
 .merch .mh{width:54px;height:auto;flex:none}
 .merch p{color:var(--t2,#AAAAAA)}.merch b{color:var(--paper);font-weight:400}
-@media(max-width:700px){.lights{top:calc(33px + 48px);height:40px}.lights i{width:8px;height:13px;margin-left:-4px}.st1{width:46px;top:8%}.st2,.st3,.st5{display:none}.st4{width:54px;top:6%}.orn-r{width:90px;top:60px}.holly-r,.holly-l{width:90px;opacity:.6}}
-@media(prefers-reduced-motion:reduce){.lights i,.deco{animation:none}}
+.gift{position:relative;overflow:visible;border-top:6px solid #9c1119}
+.bow{position:absolute;left:50%;top:-44px;width:112px;margin-left:-56px;pointer-events:none;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35))}
+.bow svg{display:block;width:100%;height:auto}
+.sf,.step{position:relative}
+.cap{position:absolute;left:-4px;right:-4px;top:-9px;height:22px;pointer-events:none;z-index:2;filter:drop-shadow(0 2px 2px rgba(0,0,0,.35))}
+.step .cap{left:0;right:0;top:0}
+.cap svg{display:block;width:100%;height:100%}
+@media(max-width:700px){.st1{width:46px;top:6%}.st2,.st3,.st5{display:none}.st4{width:54px;top:6%}.orn-r{width:90px;top:60px}.holly-r,.holly-l{width:90px;opacity:.5}.bow{width:66px;margin-left:-33px;top:-27px}}
+@media(prefers-reduced-motion:reduce){.deco{animation:none}}
 .bar .lang{margin-left:auto;margin-right:12px;display:flex;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}.bar .lang button{font-family:var(--mono);font-size:11px;letter-spacing:.14em;background:transparent;color:var(--t2,#AAAAAA);border:0;padding:9px 12px;cursor:pointer}.bar .lang button.on{background:var(--paper);color:#151515}@media(max-width:700px){.bar .lang{margin-right:8px}.bar .lang button{padding:8px 9px;font-size:10px}}</style></head><body>
 <header class="bar"><a class="logo" href="#cover"><img src="img/logo.png" alt="204 No-Content"></a><div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="pt">PT</button></div><a class="btn" href="#cta">Get a quote ↓</a></header><nav class="dots" id="dots"></nav>
 
 <div class="urgent"><span class="l">Holiday Rush · limited December dates · first to book, first served</span><span class="s">Holiday Rush · limited dates · book now</span></div>
 <section id="cover" class="red" data-name="Cover">
-  <div class="lights" aria-hidden="true"></div>
   <div class="pic"><img src="img/ev_laugh2.jpg" style="object-position:4% 50%" alt="Two guests laughing at their AI portraits"></div>
   <div class="txt">
     <div class="snow" id="snow"></div>
@@ -800,7 +802,8 @@ document.querySelectorAll('.faq details').length;
 const fm=document.getElementById('form');if(fm){fm.addEventListener('submit',e=>{e.preventDefault();const lines=[...fm.querySelectorAll('input,select')].map(x=>(x.dataset.l||'')+(x.value||'—'));
  const body=TR('Hi 204,\n\n')+lines.join('\n')+'\n\n'+fm.dataset.intro;document.getElementById('msg').value=body;const co=(fm.querySelector('input')||{}).value||'';location.href='mailto:hello@204.ai?subject='+encodeURIComponent(TR('Quote request')+(co?' · '+co:''))+'&body='+encodeURIComponent(body);document.getElementById('sent').style.display='block'});
  document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('msg').value);document.getElementById('copy').textContent=TR('Copied ✓')}catch(e){document.getElementById('msg').select()}})}
-(function(){const L=document.querySelectorAll('.lights');const C=['#e8343a','#f2c14e','#3fa34d','#efefef','#4aa3df'];L.forEach(l=>{const n=innerWidth<700?11:22;let svg='<svg viewBox="0 0 1000 60" preserveAspectRatio="none"><path d="M0 4 '+Array.from({length:n},(_,i)=>{const x0=i*1000/n,x1=(i+1)*1000/n;return 'Q'+(x0+x1)/2+' 46 '+x1+' 4'}).join(' ')+'" fill="none" stroke="#2b3a2b" stroke-width="2.2" vector-effect="non-scaling-stroke"/></svg>';l.innerHTML=svg;for(let i=0;i<n;i++){const b=document.createElement('i');b.style.left=((i+.5)*100/n)+'%';b.style.setProperty('--y',(l.offsetHeight*0.42)+'px');b.style.setProperty('--c',C[i%C.length]);b.style.animationDelay=(Math.random()*2.4).toFixed(2)+'s';l.appendChild(b)}})})();
+(function(){const B='<svg viewBox="0 0 140 80" aria-hidden="true"><defs><linearGradient id="rb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8202a"/><stop offset=".55" stop-color="#9c1119"/><stop offset="1" stop-color="#6e0a10"/></linearGradient><linearGradient id="rh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path d="M66 40 L44 78 L54 74 L60 80 L70 44Z M74 40 L96 78 L86 74 L80 80 L70 44Z" fill="#8a0e15"/><path d="M68 38 C48 6 14 10 16 30 C18 48 48 46 68 40Z" fill="url(#rb)"/><path d="M72 38 C92 6 126 10 124 30 C122 48 92 46 72 40Z" fill="url(#rb)"/><path d="M26 22 C36 14 52 18 62 32" stroke="url(#rh)" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M114 22 C104 14 88 18 78 32" stroke="url(#rh)" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="60" y="30" width="20" height="18" rx="6" fill="url(#rb)"/><rect x="63" y="32" width="14" height="4" rx="2" fill="#fff" opacity=".25"/></svg>',C='<svg viewBox="0 0 400 26" preserveAspectRatio="none" aria-hidden="true"><path d="M0 9 C14 3 30 4 46 7 C64 2 86 3 104 8 C122 3 140 2 160 7 C182 1 206 3 226 8 C246 3 266 2 288 7 C308 2 330 3 350 7 C368 3 386 4 400 9 L400 13 C392 14 386 13 380 15 C376 22 368 23 366 15 C350 13 330 16 312 14 C300 13 290 16 276 14 C270 21 262 22 260 14 C240 12 222 15 202 13 C186 12 170 16 150 14 C140 13 128 15 118 14 C112 24 102 25 100 15 C84 13 66 16 48 14 C34 13 22 16 10 14 L0 13Z" fill="#f4f6f8"/><path d="M0 9 C14 3 30 4 46 7 C64 2 86 3 104 8 C122 3 140 2 160 7 C182 1 206 3 226 8 C246 3 266 2 288 7 C308 2 330 3 350 7 C368 3 386 4 400 9" stroke="#fff" stroke-width="2" fill="none" opacity=".9"/></svg>';document.querySelectorAll('#package .detail').forEach(e=>{e.classList.add('gift');const b=document.createElement('span');b.className='bow';b.innerHTML=B;e.appendChild(b)});document.querySelectorAll('#safe .sf, #how .step').forEach(e=>{const c=document.createElement('span');c.className='cap';c.innerHTML=C;e.appendChild(c)})})();
+
 (function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const c=document.createElement('canvas');c.className='gsnow';c.setAttribute('aria-hidden','true');document.body.appendChild(c);const x=c.getContext('2d');let W,H,F=[];function rs(){W=c.width=innerWidth;H=c.height=innerHeight;const n=Math.round(Math.min(90,W*H/22000));F=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:.6+Math.random()*1.9,s:.25+Math.random()*.7,d:Math.random()*6.28}))}rs();addEventListener('resize',rs);function f(){if(!document.hidden){x.clearRect(0,0,W,H);x.fillStyle='rgba(239,239,239,.75)';for(const p of F){p.y+=p.s;p.d+=.01;p.x+=Math.sin(p.d)*.35;if(p.y>H+4){p.y=-4;p.x=Math.random()*W}x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);x.fill()}}requestAnimationFrame(f)}f()})();
 const sn=document.getElementById('snow');for(let i=0;i<60;i++){const f=document.createElement('i');f.style.left=Math.random()*100+'%';const s=1+Math.random()*3;f.style.width=f.style.height=s+'px';f.style.animationDuration=(8+Math.random()*10)+'s';f.style.animationDelay=(-Math.random()*15)+'s';sn.appendChild(f)}
 const st=[...document.querySelectorAll('.step')];let si=0,stimer;function setStep(i){si=i;st.forEach((s,j)=>s.classList.toggle('on',j===i))}
